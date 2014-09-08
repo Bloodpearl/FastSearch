@@ -19,3 +19,7 @@
 *.exe
 *.out
 *.app
+
+#compiled
+FastSearch/bin/*.*
+FastSearch/obj/*.*
