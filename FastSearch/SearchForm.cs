@@ -12,23 +12,10 @@ namespace FastSearch
 {
     public partial class SearchForm : Form
     {
-        private double version = 0.1;
-        private string phrase = "Alfa";
-        private string name = "Fast Search";
         private FormApp formApp = null;
         private FormConf formConf = null;
 
-        public string FullName
-        {
-            get {
-                string[] text = { name, "-", version.ToString(), phrase };
-                return string.Join(" ", text);
-            }
-        }
 
-        public bool AlfaSwitch = true;
-        public double OpacityMax;
-        public double OpacityMin;
 
         public SearchForm()
         {
@@ -39,10 +26,17 @@ namespace FastSearch
 
         private void UseUserSettings()
         {
-            OpacityMax = 1;
-            OpacityMin = 0.4;
-            AlfaSwitch = true;
-            this.Opacity = OpacityMin;
+            AppSettings.OpacityMax = 1;
+            AppSettings.OpacityMin = 0.4;
+            AppSettings.AlfaSwitch = true;
+            this.Opacity = AppSettings.OpacityMin;
+
+            TestData();
+        }
+
+        private void TestData()
+        {
+            AppSettings.DefaultBrowser = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
         }
 
 
@@ -53,16 +47,16 @@ namespace FastSearch
 
         private void Balfa_Click(object sender, EventArgs e)
         {
-            AlfaSwitch = !AlfaSwitch;
-            if (AlfaSwitch)
+            AppSettings.AlfaSwitch = !AppSettings.AlfaSwitch;
+            if (AppSettings.AlfaSwitch)
             {
                 this.Text = "";
-                this.Opacity = OpacityMin;
+                this.Opacity = AppSettings.OpacityMin;
             }
             else
             {
-                this.Text = FullName;
-                this.Opacity = OpacityMax;
+                this.Text = AppSettings.FullName;
+                this.Opacity = AppSettings.OpacityMax;
             }
         }
 
@@ -71,7 +65,7 @@ namespace FastSearch
             if (formApp == null)
             {
                 formApp = new FormApp();
-                formApp.Text = FullName.Replace(" - ", ", Aplikacje - ");
+                formApp.Text = AppSettings.FullName.Replace(" - ", ", Aplikacje - ");
             }
 
             formApp.Show();
@@ -83,7 +77,7 @@ namespace FastSearch
             if (formConf == null)
             {
                 formConf = new FormConf();
-                formConf.Text = FullName.Replace(" - ", ", Konfiguracja - ");
+                formConf.Text = AppSettings.FullName.Replace(" - ", ", Konfiguracja - ");
             }
 
             formConf.Show();
