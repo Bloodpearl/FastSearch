@@ -4,19 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FastSearch
+namespace FastSearch.Common
 {
     public static class AppSettings
     {
-        private static double version = 0.1;
-        private static string phrase = "Alfa";
-        private static string name = "Fast Search";
+        internal static double version = 0.1;
+        internal static string phrase = "Alfa";
+        internal static string name = "Fast Search";
+        internal static string fullName = null;
+        internal static bool blockOnError = false;
+        
         public static string FullName
         {
             get
             {
-                string[] text = { name, "-", version.ToString(), phrase };
-                return string.Join(" ", text);
+                if (fullName == null)
+                {
+                    string[] text = { name, "-", version.ToString(), phrase };
+                    fullName = string.Join(" ", text);
+                }
+                return fullName;
             }
         }
         public static bool AlfaSwitch = true;
@@ -24,6 +31,34 @@ namespace FastSearch
         public static double OpacityMin;
 
         public static Dictionary<string, string> Browsers = new Dictionary<string, string>();
-        public static string DefaultBrowser;
+        private static string defaultBrowser;
+        public static string DefaultBrowser
+        {
+            get
+            {
+                if (AppSettings.defaultBrowser == null)
+                {
+                    AppFunc.SendError("Brak zdefiniowanej domyślnej przeglądarki");
+                }
+                return AppSettings.defaultBrowser;
+            }
+            set { AppSettings.defaultBrowser = value; }
+        }
+
+        public static Dictionary<string, ApplicationData> Applications = new Dictionary<string, ApplicationData>();
+        private static ApplicationData defaultApplication;
+        public static ApplicationData DefaultApplication
+        {
+            get
+            {
+                if (AppSettings.defaultApplication == null)
+                {
+                    AppFunc.SendError("Brak zdefiniowanej domyślnej aplikacji");
+                }
+                return AppSettings.defaultApplication; 
+            }
+            set { AppSettings.defaultApplication = value; }
+        }
+
     }
 }
