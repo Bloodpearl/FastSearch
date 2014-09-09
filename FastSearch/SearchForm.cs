@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FastSearch.Common;
 
 namespace FastSearch
 {
@@ -36,7 +37,13 @@ namespace FastSearch
 
         private void TestData()
         {
+            AppSettings.Browsers.Add("c", @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe");
+            AppSettings.Browsers.Add("o", @"C:\Program Files (x86)\Opera\opera.exe");
             AppSettings.DefaultBrowser = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
+            
+            AppSettings.Applications.Add("tpa", new ApplicationData(@"https://translate.google.pl/#pl/en/","Tłumacz Polski-Angielski"));
+            AppSettings.Applications.Add("tap", new ApplicationData(@"https://translate.google.pl/#en/pl/","Tłumacz Angielski-Polski"));
+            AppSettings.DefaultApplication = new ApplicationData(@"https://translate.google.pl/#pl/en/", "Tłumacz Polski-Angielski");
         }
 
 
@@ -82,6 +89,14 @@ namespace FastSearch
 
             formConf.Show();
             formConf.Activate();
+        }
+
+        private void TBtext_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                RunAction.Run(TBtext.Text, e.Control);
+            }
         }
     }
 }

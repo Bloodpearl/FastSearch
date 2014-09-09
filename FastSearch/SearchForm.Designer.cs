@@ -32,8 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchForm));
             this.FSnotify = new System.Windows.Forms.NotifyIcon(this.components);
             this.NotifyMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ustawieniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aplikacjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ustawieniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.zamknijToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TBtext = new System.Windows.Forms.TextBox();
@@ -62,17 +62,17 @@
             this.NotifyMenu.Name = "NotifyMenu";
             this.NotifyMenu.Size = new System.Drawing.Size(132, 76);
             // 
-            // ustawieniaToolStripMenuItem
-            // 
-            this.ustawieniaToolStripMenuItem.Name = "ustawieniaToolStripMenuItem";
-            this.ustawieniaToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.ustawieniaToolStripMenuItem.Text = "Ustawienia";
-            // 
             // aplikacjeToolStripMenuItem
             // 
             this.aplikacjeToolStripMenuItem.Name = "aplikacjeToolStripMenuItem";
             this.aplikacjeToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.aplikacjeToolStripMenuItem.Text = "Aplikacje";
+            // 
+            // ustawieniaToolStripMenuItem
+            // 
+            this.ustawieniaToolStripMenuItem.Name = "ustawieniaToolStripMenuItem";
+            this.ustawieniaToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.ustawieniaToolStripMenuItem.Text = "Ustawienia";
             // 
             // toolStripMenuItem1
             // 
@@ -91,8 +91,9 @@
             this.TBtext.Dock = System.Windows.Forms.DockStyle.Top;
             this.TBtext.Location = new System.Drawing.Point(0, 0);
             this.TBtext.Name = "TBtext";
-            this.TBtext.Size = new System.Drawing.Size(259, 20);
+            this.TBtext.Size = new System.Drawing.Size(255, 20);
             this.TBtext.TabIndex = 1;
+            this.TBtext.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TBtext_KeyDown);
             // 
             // BApp
             // 
@@ -150,7 +151,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(259, 46);
+            this.ClientSize = new System.Drawing.Size(255, 42);
             this.ControlBox = false;
             this.Controls.Add(this.Balfa);
             this.Controls.Add(this.Bconf);
