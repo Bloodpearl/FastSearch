@@ -7,7 +7,7 @@ using FastSearch.Common;
 
 namespace FastSearch
 {
-    public class ApplicationData
+    public class AplicationArgsData
     {
         private string name;
         public string Name
@@ -30,7 +30,7 @@ namespace FastSearch
             set { escapeChars = value; }
         }
 
-        public ApplicationData(string address, string name = "", bool escapeChars = false)
+        public AplicationArgsData(string address, string name = "", bool escapeChars = false)
         {
             this.address = address;
             this.name = name;

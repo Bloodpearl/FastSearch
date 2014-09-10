@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppFunc.cs" />
-    <Compile Include="ApplicationData.cs" />
+    <Compile Include="AplicationArgsData.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="FormApp.cs">
       <SubType>Form</SubType>
