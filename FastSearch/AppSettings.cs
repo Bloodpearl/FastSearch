@@ -20,7 +20,7 @@ namespace FastSearch.Common
         internal static string appConfFile = "FastSearch.ini";
         #endregion
 
-        #region ini stored fields
+        #region fields
         public static string FullName
         {
             get
@@ -33,9 +33,15 @@ namespace FastSearch.Common
                 return fullName;
             }
         }
+        private static string[] fieldsToSkipSave = {
+            "fieldsToSkipSave","xmlStoredFields","AlfaSwitch","FullName","version","phrase","name","fullName","blockOnError","appConfFile","defaultApplication","defaultArgs"
+        };
+
+        #region ini stored fields
+        public static bool DefaultAlfaSwitch = true;
         public static bool AlfaSwitch = true;
-        public static double OpacityMax;
-        public static double OpacityMin;
+        public static double OpacityMax = 1;
+        public static double OpacityMin = 0.4;
         #endregion
 
         #region xml stored properties
@@ -73,6 +79,7 @@ namespace FastSearch.Common
             set { AppSettings.defaultArgs = value; }
         }
         #endregion
+        #endregion
 
         #region functions
         public bool SaveSettings()
@@ -82,7 +89,8 @@ namespace FastSearch.Common
                 MemberInfo[] list = GetSettingsList();
                 foreach (MemberInfo member in list)
                 {
-                    if (Array.IndexOf(xmlStoredFields, member.Name) != -1)
+                    if (Array.IndexOf(xmlStoredFields, member.Name) != -1 ||
+                        Array.IndexOf(fieldsToSkipSave, member.Name) != -1)
                         continue;
                     if (member.MemberType == MemberTypes.Field)
                     {
@@ -99,6 +107,64 @@ namespace FastSearch.Common
                 }
             }
             return true;
+        }
+        public bool LoadSettings()
+        {
+            Dictionary<string, string> settings = new Dictionary<string, string>();
+            char[] iniSplitter = {'='};
+            using (StreamReader reader = new StreamReader(appConfFile))
+            {
+                string line;
+                string[] parts;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    parts = line.Split(iniSplitter);
+                    settings.Add(parts[0], parts[1]);
+                }
+            }
+            MemberInfo[] list = GetSettingsList();
+            foreach (MemberInfo member in list)
+            {
+                if (Array.IndexOf(xmlStoredFields, member.Name) != -1 ||
+                    Array.IndexOf(fieldsToSkipSave, member.Name) != -1 ||
+                    !settings.ContainsKey(member.Name))
+                    continue;
+                if (member.MemberType == MemberTypes.Field)
+                {
+                    FieldInfo field = (FieldInfo)member;
+                    field.SetValue(this, Convert.ChangeType(settings[field.Name],field.FieldType));
+                }
+                else
+                {
+                    PropertyInfo property = (PropertyInfo)member;
+                    if (!property.CanWrite)
+                        continue;
+                    property.SetValue(this, Convert.ChangeType(settings[property.Name], property.PropertyType));
+                }
+            }
+
+            return true;
+        }
+        public string GetSettingsInfo()
+        {
+            StringBuilder info = new StringBuilder();
+            MemberInfo[] list = GetSettingsList();
+            foreach (MemberInfo member in list)
+            {
+                if (member.MemberType == MemberTypes.Field)
+                {
+                    FieldInfo field = (FieldInfo)member;
+                    info.AppendLine(field.Name + "=" + field.GetValue(this));
+                }
+                else
+                {
+                    PropertyInfo property = (PropertyInfo)member;
+                    if (!property.CanWrite)
+                        continue;
+                    info.AppendLine(property.Name + "=" + property.GetValue(this));
+                }
+            }
+            return info.ToString();
         }
         private static MemberInfo[] GetSettingsList()
         {

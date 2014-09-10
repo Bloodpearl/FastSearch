@@ -91,7 +91,7 @@
             this.TBtext.Dock = System.Windows.Forms.DockStyle.Top;
             this.TBtext.Location = new System.Drawing.Point(0, 0);
             this.TBtext.Name = "TBtext";
-            this.TBtext.Size = new System.Drawing.Size(255, 20);
+            this.TBtext.Size = new System.Drawing.Size(251, 20);
             this.TBtext.TabIndex = 1;
             this.TBtext.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TBtext_KeyDown);
             // 
@@ -151,7 +151,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(255, 42);
+            this.ClientSize = new System.Drawing.Size(251, 38);
             this.ControlBox = false;
             this.Controls.Add(this.Balfa);
             this.Controls.Add(this.Bconf);

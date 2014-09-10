@@ -16,31 +16,29 @@ namespace FastSearch
         private FormApp formApp = null;
         private FormConf formConf = null;
 
-
-
         public SearchForm()
         {
             InitializeComponent();
-
-            UseUserSettings();
+            (new AppSettings()).LoadSettings();
+            SetUserSettings();
         }
 
-        private void UseUserSettings()
+        private void SetUserSettings()
         {
-            AppSettings.OpacityMax = 1;
-            AppSettings.OpacityMin = 0.4;
-            AppSettings.AlfaSwitch = true;
-            this.Opacity = AppSettings.OpacityMin;
-
+            AppSettings.AlfaSwitch = AppSettings.DefaultAlfaSwitch;
+            SetOpacity();
+            
             TestData();
         }
 
         private void TestData()
         {
+            AppSettings.Applications.Clear();
             AppSettings.Applications.Add("c", @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe");
             AppSettings.Applications.Add("o", @"C:\Program Files (x86)\Opera\opera.exe");
             AppSettings.DefaultApplication = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
 
+            AppSettings.Args.Clear();
             AppSettings.Args.Add("tpa", new AplicationArgsData(@"https://translate.google.pl/#pl/en/", "Tłumacz Polski-Angielski", true));
             AppSettings.Args.Add("tap", new AplicationArgsData(@"https://translate.google.pl/#en/pl/", "Tłumacz Angielski-Polski", true));
             AppSettings.DefaultArgs = new AplicationArgsData(@"https://translate.google.pl/#pl/en/", "Tłumacz Polski-Angielski", true);
@@ -55,6 +53,11 @@ namespace FastSearch
         private void Balfa_Click(object sender, EventArgs e)
         {
             AppSettings.AlfaSwitch = !AppSettings.AlfaSwitch;
+            SetOpacity();
+        }
+
+        private void SetOpacity()
+        {
             if (AppSettings.AlfaSwitch)
             {
                 this.Text = "";
@@ -81,7 +84,6 @@ namespace FastSearch
 
         private void Bconf_Click(object sender, EventArgs e)
         {
-            (new AppSettings()).SaveSettings();
             if (formConf == null)
             {
                 formConf = new FormConf();
