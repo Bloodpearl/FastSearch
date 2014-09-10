@@ -40,10 +40,10 @@ namespace FastSearch
             AppSettings.Browsers.Add("c", @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe");
             AppSettings.Browsers.Add("o", @"C:\Program Files (x86)\Opera\opera.exe");
             AppSettings.DefaultBrowser = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
-            
-            AppSettings.Applications.Add("tpa", new ApplicationData(@"https://translate.google.pl/#pl/en/","Tłumacz Polski-Angielski"));
-            AppSettings.Applications.Add("tap", new ApplicationData(@"https://translate.google.pl/#en/pl/","Tłumacz Angielski-Polski"));
-            AppSettings.DefaultApplication = new ApplicationData(@"https://translate.google.pl/#pl/en/", "Tłumacz Polski-Angielski");
+
+            AppSettings.Applications.Add("tpa", new ApplicationData(@"https://translate.google.pl/#pl/en/", "Tłumacz Polski-Angielski", true));
+            AppSettings.Applications.Add("tap", new ApplicationData(@"https://translate.google.pl/#en/pl/", "Tłumacz Angielski-Polski", true));
+            AppSettings.DefaultApplication = new ApplicationData(@"https://translate.google.pl/#pl/en/", "Tłumacz Polski-Angielski", true);
         }
 
 

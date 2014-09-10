@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FastSearch.Common;
 
 namespace FastSearch
 {
@@ -22,23 +23,32 @@ namespace FastSearch
             set { address = value; }
         }
 
-        private bool convertChars;
-        public bool ConvertChars
+        private bool escapeChars;
+        public bool EscapeChars
         {
-            get { return convertChars; }
-            set { convertChars = value; }
+            get { return escapeChars; }
+            set { escapeChars = value; }
         }
 
-        public ApplicationData(string address, string name = "", bool convertChars = false)
+        public ApplicationData(string address, string name = "", bool escapeChars = false)
         {
             this.address = address;
             this.name = name;
-            this.convertChars = convertChars;
+            this.escapeChars = escapeChars;
         }
 
         public string GetAddressWithParams(string arguments)
         {
-            return address + arguments;
+            string arg;
+            if (escapeChars)
+            {
+                arg = AppFunc.EscaoeChars(arguments);
+            }
+            else
+            {
+                arg = arguments;
+            }
+            return address + arg;
         }
 
         public override string ToString()

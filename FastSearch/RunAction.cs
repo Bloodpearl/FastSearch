@@ -59,10 +59,6 @@ namespace FastSearch
             }
             if (browser == null)
             {
-                if (AppSettings.DefaultBrowser == null)
-                {
-                    AppFunc.SendError("Brak zdefiniowanej domyślnej przeglądarki");
-                }
                 browser = AppSettings.DefaultBrowser;
             }
             // match action
@@ -77,10 +73,6 @@ namespace FastSearch
             }
             if (app == null)
             {
-                if (AppSettings.DefaultApplication == null)
-                {
-                    AppFunc.SendError("Brak zdefiniowanej domyślnej aplikacji");
-                }
                 app = AppSettings.DefaultApplication;
             }
 
